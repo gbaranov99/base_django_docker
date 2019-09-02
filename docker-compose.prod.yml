@@ -22,10 +22,14 @@ services:
   nginx:
     build: ./nginx
     volumes:
+      - ./dh-param/dhparam-2048.pem:/etc/ssl/certs/dhparam-2048.pem
       - static_volume:/usr/src/app/staticfiles
       - media_volume:/usr/src/app/mediafiles
+      - /docker-volumes/etc/letsencrypt/live/duckrain.com/fullchain.pem:/etc/letsencrypt/live/duckrain.com/fullchain.pem
+      - /docker-volumes/etc/letsencrypt/live/duckrain.com/privkey.pem:/etc/letsencrypt/live/duckrain.com/privkey.pem
     ports:
       - 80:80
+      - 443:443
     depends_on:
       - web
 
